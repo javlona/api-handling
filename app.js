@@ -109,8 +109,9 @@ function selectUser() {
     let current = getUsersTodos(todosStorage, index)
 
     storage.add('currentTodo', current)
-    console.log(current)
-    console.log(todosStorage)
+    console.log(index)
+    // console.log(current)
+    // console.log(todosStorage)
 }
 
 
