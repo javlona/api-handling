@@ -7,11 +7,6 @@ let loadButton = document.querySelector('#btn'),
 // fetched todos in localStorage
     let todosStorage;
 
-// current users row index
-    let index;
-    let row = document.getElementById('nameList').getElementsByTagName("tr");
-
-
 
 // locale storage shortcuts
 let storage = {
@@ -50,7 +45,7 @@ function fetchDataToStorage() {
             let tr;
             userStorage.forEach(user => {
                 tr = `
-                <td><a href="todo.html" target="_blank" onclick="selectUser()">${user.name}</a></td>
+                <td><a href="todo.html" target="_blank" onclick="selectUser(${user.id})">${user.name}</a></td>
                 <td>${user.website}</td>
                 <td>${user.phone}</td>
                 <td>${user.address.city}</td>
@@ -93,31 +88,14 @@ function getUsersTodos(todosStorage, id) {
 
 }
 
-function selectUser() {
+// 
+function selectUser(id) {
    
-    
-    // // copy from localStorage
-    // const data = Storage.get("data")
-    
-    // get the index of selected row
-    for (let i = 0; i < row.length; i++) {
-        row[i].onclick = function(){
-            index = this.rowIndex;
-        }
-    }
-
-    let current = getUsersTodos(todosStorage, index)
-
+    let current = getUsersTodos(todosStorage, id)
     storage.add('currentTodo', current)
-    console.log(index)
-    // console.log(current)
-    // console.log(todosStorage)
+
+    console.log(id)
 }
 
-
-
-//let eachUser = document.querySelector('#eachUser')
-// event handlers
-//eachUser.addEventListener("click", selectUser)
 
 loadButton.addEventListener('click', mainAction)
