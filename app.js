@@ -2,7 +2,7 @@ let loadButton = document.querySelector('#btn'),
     nameList = document.querySelector('#nameList');
 
 // event handlers
-loadButton.addEventListener('click', getTable)
+loadButton.addEventListener('click', fetchDataToStorage)
 
 
 // locale storage shortcuts
@@ -19,17 +19,22 @@ let storage = {
 };
 
 
-// fetch api
-function getTable() {
+let userStorage;
+
+// fetch data from api to localStorage
+function fetchDataToStorage() {
     nameList.innerHTML = ""
     fetch('https://jsonplaceholder.typicode.com/users')
         .then(result => result.json())
         .then(data => {
-            storage.add('users', data)
-            
 
+            // fetched data is stored to localStorage
+            storage.add('users', data)
+            userStorage = storage.get('users')
+
+            // render data to DOM from localStorage
             let row;
-            data.forEach(user => {
+            userStorage.forEach(user => {
                 row = `
                 <td>${user.name}</td>
                 <td>${user.website}</td>
