@@ -97,5 +97,51 @@ function selectUser(id) {
     console.log(id)
 }
 
+let title = document.getElementById('first_name')
+let username = document.getElementById('last_name')
+let phone = document.getElementById('phone')
+let website = document.getElementById('website')
+let email = document.getElementById('email')
+let form = document.getElementById('form')
 
+
+function User(name, username, phone, website, email) {
+    this.name = name,
+    this.username = username,
+    this.phone = phone,
+    this.website = website,
+    this.email = email,
+    this.address = {street: 'Kulas Light', suite: 'Apt. 556', city: 'Gwenborough', zipcode: '92998-3874', geo: {lat: '-37.3159', lng: '81.1496'}},
+    this.company = {name: 'Romaguera-Crona', catchPhrase: 'Multi-layered client-server neural-net', bs: 'harness real-time e-markets'}
+}
+
+async function createUser(e) {
+    e.preventDefault();
+
+    let user = new User(title.value, username.value, phone.value, website.value, email.value)
+
+    let res = await postIt(user)
+    
+    let users = storage.get('users')
+
+    storage.add("users", [...users, res])
+
+    console.log(users)
+
+}
+
+async function postIt(data) {
+    let response = await fetch("https://jsonplaceholder.typicode.com/users", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify(data)  
+        }
+    )
+    return response.json()
+    
+}
+
+form.addEventListener('submit', createUser)
 loadButton.addEventListener('click', mainAction)
