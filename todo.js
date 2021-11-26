@@ -23,11 +23,11 @@ function showTodos(){
 
         todoList.innerHTML += li
     })
-    console.log(data)
 
+    // get the users name and write it to DOM
     let name = users[data[0].userId - 1].name
-    
     userName.innerHTML = name
+    
 }
 
 this.addEventListener('load', showTodos)
